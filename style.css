@@ -4,10 +4,8 @@
 
 body {
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    place-items: center;
 
     font-size: 1em;
     color: white;
@@ -15,37 +13,61 @@ body {
     background-color: hsl(210, 46%, 95%);
 }
 
-h1 {
+strong {
     font-size: 1.2em;
     font-weight: 500;
 }
-h2 {
+em {
     font-size: 1em;
     font-weight: 300;
     opacity: 0.5;
 }
-h3 {
+div + p {
     font-size: 1.2em;
     font-weight: 600;
 }
 
 main {
-    margin: 30px;
+    margin: 15px;
 }
 
 .box {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     border-radius: 10px;
     padding: 20px;
+
+    animation-name: appear;
+    animation-duration: 1000ms;
+    animation-fill-mode: backwards;
+
+    transition: transform ease-in 250ms, box-shadow ease-in 250ms;
+
+    &:hover {
+        transform: translateY(-0.5rem);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    }
+    &:active {
+        transform: scale(120%);
+        z-index: 100;
+    }
 }
 .box div:first-child {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 1rem;
+
+    div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 
 }
 .box img {
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
 }
 .box p {
@@ -54,45 +76,86 @@ main {
 
 .one {
     background-color: hsl(263, 55%, 52%);
+    background-image: url('images/bg-pattern-quotation.svg');
+    background-position: top right 10%;
+    background-repeat: no-repeat;
+
+    animation-delay: 0ms;
 }
 .two {
     background-color: hsl(217, 19%, 35%);
+
+    animation-delay: 200ms;
 }
 .three {
     background-color: hsl(0, 0%, 100%);
     color: black;
+
+    animation-delay: 400ms;
 }
 .four {
     background-color: hsl(219, 29%, 14%);
+
+    animation-delay: 600ms;
 }
 .five {
     background-color: hsl(0, 0%, 100%);
     color: black;
+
+    animation-delay: 800ms;
 }
 
 .attribution { font-size: 11px; text-align: center; }
 .attribution a { color: hsl(228, 45%, 44%); }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 575px) {
     main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 15px;
+        display: grid;
+        grid-template-columns: 1fr;
+        place-items: center;
+        gap: 1rem;
     }
     .box {
-        max-width: 300px;
+        max-width: 32rem;
     }
 }
+@media screen and (min-width: 575px) {
+    main {
+        max-width: 1075px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: 1rem;
+    }
+    .one {
+        grid-column: 1 / 3;
+        grid-row: 1;
+    }
+    .two {
+        grid-column: 3;
+        grid-row: 1;
+    }
+    .five {
+        grid-column: 1 / 4;
+        grid-row: 3;
+    }
+    .three {
+        grid-column: 1 / 2;
+        grid-row: 2;
+    }
+    .four {
+        grid-column: 2 / 4;
+        grid-row: 2;
+    }   
+}
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
     main {
         max-width: 1075px;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr;
-        gap: 15px;
+        gap: 1rem;
     }
     .one {
         grid-column: 1 / 3;
@@ -113,5 +176,17 @@ main {
     .four {
         grid-column: 2 / 4;
         grid-row: 2;
+    }
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        translate: -25rem 20rem;
+        rotate: -1turn;
+    }
+    to {
+        opacity: 1;
+        translate: 0 0;
     }
 }
